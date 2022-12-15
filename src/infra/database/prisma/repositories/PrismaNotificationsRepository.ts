@@ -1,22 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { Notification } from 'src/app/entities/notification/notification';
+import { Notification } from '@app/entities/notification/notification';
 import { NotificationsRepository } from 'src/app/repositories/NotificationsRepository';
 import { PrismaService } from '../prisma.service';
+import { PrismaNotificationMapper } from '../mappers/PrismaNotificationMapper';
 
 @Injectable()
 export class PrismaNotificationsRepository implements NotificationsRepository {
   constructor(private prismaService: PrismaService) {}
 
   async create(notification: Notification): Promise<void> {
+    const raw = PrismaNotificationMapper.toPrisma(notification);
+
     await this.prismaService.notification.create({
-      data: {
-        id: notification.id,
-        category: notification.category,
-        content: notification.content.value,
-        recipientId: notification.recipientId,
-        readAt: notification.readAt,
-        createdAt: notification.createdAt,
-      },
+      data: raw,
     });
   }
 
@@ -26,5 +22,28 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     return notifications;
+  }
+
+  async findById(notificationId: string): Promise<Notification | null> {
+    const notification = await this.prismaService.notification.findUnique({
+      where: {
+        id: notificationId,
+      },
+    });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    return notification;
+  }
+
+  async update(notification: Notification): Promise<void> {
+    const raw = PrismaNotificationMapper.toPrisma(notification);
+
+    this.prismaService.notification.update({
+      where: {
+        id: notification.id,
+      },
+      data: raw,
+    });
   }
 }

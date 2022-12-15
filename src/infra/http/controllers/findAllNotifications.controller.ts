@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { Notification } from 'src/app/entities/notification/notification';
-import { FindAllNotificationsUseCase } from 'src/app/useCases/FindAllNotifications/FindAllNotificationsUseCase';
+import { Notification } from '@app/entities/notification/notification';
+import { FindAllNotificationsUseCase } from '@app/useCases/FindAllNotifications/FindAllNotificationsUseCase';
 
 @Controller('notifications')
 export class FindAllNotificationsController {
