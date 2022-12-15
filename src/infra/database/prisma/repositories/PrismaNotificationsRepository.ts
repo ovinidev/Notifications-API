@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Notification } from '@app/entities/notification/notification';
 import { NotificationsRepository } from 'src/app/repositories/NotificationsRepository';
 import { PrismaService } from '../prisma.service';
 import { PrismaNotificationMapper } from '../mappers/PrismaNotificationMapper';
+import { Notification } from '@app/entities/notification/notification';
 
 @Injectable()
 export class PrismaNotificationsRepository implements NotificationsRepository {
@@ -17,23 +17,19 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
   }
 
   async findAll(): Promise<Notification[]> {
-    const notifications = await this.prismaService.notification.findMany();
-
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    return notifications;
+    return await this.prismaService.notification.findMany();
   }
 
   async findById(notificationId: string): Promise<Notification | null> {
-    const notification = await this.prismaService.notification.findUnique({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    return await this.prismaService.notification.findUnique({
       where: {
         id: notificationId,
       },
     });
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    return notification;
   }
 
   async update(notification: Notification): Promise<void> {
@@ -51,6 +47,16 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
     return this.prismaService.notification.count({
       where: {
         recipientId,
+      },
+    });
+  }
+
+  async findByRecipientId(recipientId: string): Promise<Notification[]> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    return await this.prismaService.notification.findMany({
+      where: {
+        recipientId: recipientId,
       },
     });
   }

@@ -10,14 +10,12 @@ export class CountRecipientNotificationsController {
     private countRecipientNotificationUseCase: CountRecipientNotificationsUseCase,
   ) {}
 
-  @Get(':id')
+  @Get('count/:id')
   async get(
     @Param('id') id: string,
   ): Promise<CountRecipientNotificationsUseCaseResponse> {
-    const notificationCount = this.countRecipientNotificationUseCase.execute({
+    return this.countRecipientNotificationUseCase.execute({
       recipientId: id,
     });
-
-    return notificationCount;
   }
 }

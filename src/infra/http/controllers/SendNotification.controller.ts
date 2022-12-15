@@ -18,8 +18,6 @@ export class SendNotificationController {
       category,
     });
 
-    const notificationToHTTP = NotificationViewModel.toHTTP(notification);
-
-    return notificationToHTTP;
+    return NotificationViewModel.toHTTP(notification);
   }
 }

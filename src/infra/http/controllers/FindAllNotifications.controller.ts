@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { Notification } from '@app/entities/notification/notification';
 import { FindAllNotificationsUseCase } from '@app/useCases/FindAllNotifications/FindAllNotificationsUseCase';
+import { Notification } from '@app/entities/notification/notification';
 
 @Controller('notifications')
 export class FindAllNotificationsController {
@@ -10,8 +10,6 @@ export class FindAllNotificationsController {
 
   @Get()
   async get(): Promise<Notification[]> {
-    const notifications = await this.findAllNotificationsUseCase.execute();
-
-    return notifications;
+    return await this.findAllNotificationsUseCase.execute();
   }
 }
