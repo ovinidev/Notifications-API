@@ -10,6 +10,10 @@ import { CountRecipientNotificationsController } from './controllers/CountRecipi
 import { CountRecipientNotificationsUseCase } from '@app/useCases/CountNotifications/CountRecipientNotificationsUseCase';
 import { GetRecipientNotificationsController } from './controllers/GetRecipientNotifications.controller';
 import { GetRecipientNotificationsUseCase } from '@app/useCases/GetRecipientNotifications/GetRecipientNotificationsUseCase';
+import { ReadNotificationController } from './controllers/ReadNotification.controller';
+import { UnreadNotificationController } from './controllers/UnreadNotification.controller';
+import { ReadNotificationUseCase } from '@app/useCases/ReadNotification/ReadNotificationUseCase';
+import { UnreadNotificationUseCase } from '@app/useCases/UnreadNotification/UnreadNotificationUseCase';
 
 @Module({
   imports: [DataBaseModule],
@@ -19,6 +23,8 @@ import { GetRecipientNotificationsUseCase } from '@app/useCases/GetRecipientNoti
     CancelNotificationController,
     CountRecipientNotificationsController,
     GetRecipientNotificationsController,
+    ReadNotificationController,
+    UnreadNotificationController,
   ],
   providers: [
     SendNotificationUseCase,
@@ -26,6 +32,8 @@ import { GetRecipientNotificationsUseCase } from '@app/useCases/GetRecipientNoti
     CancelNotificationUseCase,
     CountRecipientNotificationsUseCase,
     GetRecipientNotificationsUseCase,
+    ReadNotificationUseCase,
+    UnreadNotificationUseCase,
   ],
 })
 export class HttpModule {}

@@ -1,6 +1,5 @@
 import { NotificationsRepositoryInMemory } from '../../../../test/repositories/NotificationsRepositoryInMemory';
 import { NotificationNotFound } from '../errors/NotificationNotFound';
-import { ReadNotificationUseCase } from '../ReadNotification/ReadNotificationUseCase';
 import { SendNotificationUseCase } from '../SendNotification/SendNotificationUseCase';
 import { UnreadNotificationUseCase } from './UnreadNotificationUseCase';
 
@@ -25,12 +24,9 @@ describe('Unread notification', () => {
       notificationToSend,
     );
 
-    console.log({ notification });
-
     await unreadNotificationUseCase.execute({
       notificationId: notification.id,
     });
-    console.log({ notification });
 
     expect(notification.readAt).toBeNull();
   });

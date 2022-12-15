@@ -1,6 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
 import { FindAllNotificationsUseCase } from '@app/useCases/FindAllNotifications/FindAllNotificationsUseCase';
 import { Notification } from '@app/entities/notification/notification';
+import {
+  NotificationViewModel,
+  NotificationViewModelProps,
+} from '../viewModels/NotificationViewModels';
 
 @Controller('notifications')
 export class FindAllNotificationsController {
@@ -9,7 +13,9 @@ export class FindAllNotificationsController {
   ) {}
 
   @Get()
-  async get(): Promise<Notification[]> {
-    return await this.findAllNotificationsUseCase.execute();
+  async get(): Promise<NotificationViewModelProps[]> {
+    const notifications = await this.findAllNotificationsUseCase.execute();
+
+    return notifications.map(NotificationViewModel.toHTTP);
   }
 }
