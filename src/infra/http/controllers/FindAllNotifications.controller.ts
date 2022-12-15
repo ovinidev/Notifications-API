@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { FindAllNotificationsUseCase } from '@app/useCases/FindAllNotifications/FindAllNotificationsUseCase';
-import { Notification } from '@app/entities/notification/notification';
 import {
   NotificationViewModel,
   NotificationViewModelProps,
