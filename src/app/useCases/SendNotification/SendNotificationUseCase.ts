@@ -28,6 +28,7 @@ export class SendNotificationUseCase {
       category,
       content: new Content(content),
       recipientId,
+      createdAt: new Date(),
     });
 
     await this.notificationsRepository.create(notification);

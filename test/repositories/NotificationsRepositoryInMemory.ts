@@ -25,9 +25,9 @@ export class NotificationsRepositoryInMemory
   }
 
   async update(notificationToUpdate: Notification): Promise<void> {
-    this.notifications.filter((notification) => {
-      return notification.id !== notificationToUpdate.id;
-    });
+    this.notifications.filter(
+      (notification) => notification.id !== notificationToUpdate.id,
+    );
 
     this.notifications.push(notificationToUpdate);
   }
@@ -38,7 +38,7 @@ export class NotificationsRepositoryInMemory
     ).length;
   }
 
-  async findByRecipientId(recipientId: string): Promise<Notification[]> {
+  async findManyByRecipientId(recipientId: string): Promise<Notification[]> {
     return this.notifications.filter(
       (notification) => notification.recipientId === recipientId,
     );

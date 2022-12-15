@@ -1,5 +1,5 @@
-import { Notification } from '@app/entities/notification/notification';
-import { NotificationsRepository } from '@app/repositories/NotificationsRepository';
+import { Notification } from '../../entities/notification/notification';
+import { NotificationsRepository } from '../../repositories/NotificationsRepository';
 import { Injectable } from '@nestjs/common';
 
 interface GetRecipientNotificationsRequest {
@@ -15,6 +15,8 @@ export class GetRecipientNotificationsUseCase {
   ): Promise<Notification[]> {
     const { recipientId } = req;
 
-    return await this.notificationsRepository.findByRecipientId(recipientId);
+    return await this.notificationsRepository.findManyByRecipientId(
+      recipientId,
+    );
   }
 }

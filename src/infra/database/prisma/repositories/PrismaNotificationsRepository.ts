@@ -17,47 +17,51 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
   }
 
   async findAll(): Promise<Notification[]> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    return await this.prismaService.notification.findMany();
+    const notifications = await this.prismaService.notification.findMany();
+
+    return notifications.map(PrismaNotificationMapper.toDomain);
   }
 
   async findById(notificationId: string): Promise<Notification | null> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    return await this.prismaService.notification.findUnique({
+    const notification = await this.prismaService.notification.findUnique({
       where: {
         id: notificationId,
       },
     });
+
+    if (!notification) return null;
+
+    if (!notification.id) throw new Error('cade o id');
+
+    return PrismaNotificationMapper.toDomain(notification);
   }
 
   async update(notification: Notification): Promise<void> {
     const raw = PrismaNotificationMapper.toPrisma(notification);
 
-    this.prismaService.notification.update({
+    await this.prismaService.notification.update({
       where: {
-        id: notification.id,
+        id: raw.id,
       },
       data: raw,
     });
   }
 
   async countManyByRecipientId(recipientId: string): Promise<number> {
-    return this.prismaService.notification.count({
+    return await this.prismaService.notification.count({
       where: {
         recipientId,
       },
     });
   }
 
-  async findByRecipientId(recipientId: string): Promise<Notification[]> {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    return await this.prismaService.notification.findMany({
+  async findManyByRecipientId(recipientId: string): Promise<Notification[]> {
+    const notifications = await this.prismaService.notification.findMany({
       where: {
-        recipientId: recipientId,
+        recipientId,
       },
     });
+
+    return notifications.map(PrismaNotificationMapper.toDomain);
   }
 }
