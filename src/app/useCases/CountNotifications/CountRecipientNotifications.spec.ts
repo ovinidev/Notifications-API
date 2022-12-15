@@ -1,16 +1,15 @@
 import { NotificationsRepositoryInMemory } from '../../../../test/repositories/NotificationsRepositoryInMemory';
 import { SendNotificationUseCase } from '../SendNotification/SendNotificationUseCase';
-import { FindAllNotificationsUseCase } from './FindAllNotificationsUseCase';
+import { CountRecipientNotificationsUseCase } from './CountRecipientNotificationsUseCase';
 
-describe('Find all notifications', () => {
+describe('Count recipient notifications', () => {
   const notificationsRepositoryInMemory = new NotificationsRepositoryInMemory();
-  it('should be able to find a notifications', async () => {
+  it('should be able to get a count of a notification', async () => {
     const sendNotificationUseCase = new SendNotificationUseCase(
       notificationsRepositoryInMemory,
     );
-    const findAllNotificationsUseCase = new FindAllNotificationsUseCase(
-      notificationsRepositoryInMemory,
-    );
+    const countRecipientNotificationsUseCase =
+      new CountRecipientNotificationsUseCase(notificationsRepositoryInMemory);
 
     const notificationToSend = {
       content: 'Teste de descrição',
@@ -20,8 +19,10 @@ describe('Find all notifications', () => {
 
     await sendNotificationUseCase.execute(notificationToSend);
 
-    const allNotifications = await findAllNotificationsUseCase.execute();
+    const { count } = await countRecipientNotificationsUseCase.execute({
+      recipientId: notificationToSend.recipientId,
+    });
 
-    expect(allNotifications).toBeTruthy();
+    expect(count).toEqual(1);
   });
 });
