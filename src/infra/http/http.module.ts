@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
-import { FindAllNotificationsUseCase } from 'src/app/useCases/FindAllNotifications/FindAllNotificationsUseCase';
-import { SendNotificationUseCase } from '@app/useCases/SendNotification/SendNotificationUseCase';
+import { FindAllNotificationsUseCase } from 'src/app/useCases/notification/FindAllNotifications/FindAllNotificationsUseCase';
+import { SendNotificationUseCase } from '@app/useCases/notification/SendNotification/SendNotificationUseCase';
 import { DataBaseModule } from '../database/database.module';
-import { FindAllNotificationsController } from './controllers/FindAllNotifications.controller';
-import { SendNotificationController } from './controllers/SendNotification.controller';
-import { CancelNotificationController } from './controllers/CancelNotification.controller';
-import { CancelNotificationUseCase } from '@app/useCases/CancelNotification/CancelNotificationUseCase';
-import { CountRecipientNotificationsController } from './controllers/CountRecipientNotification.controller';
-import { CountRecipientNotificationsUseCase } from '@app/useCases/CountNotifications/CountRecipientNotificationsUseCase';
-import { GetRecipientNotificationsController } from './controllers/GetRecipientNotifications.controller';
-import { GetRecipientNotificationsUseCase } from '@app/useCases/GetRecipientNotifications/GetRecipientNotificationsUseCase';
-import { ReadNotificationController } from './controllers/ReadNotification.controller';
-import { UnreadNotificationController } from './controllers/UnreadNotification.controller';
-import { ReadNotificationUseCase } from '@app/useCases/ReadNotification/ReadNotificationUseCase';
-import { UnreadNotificationUseCase } from '@app/useCases/UnreadNotification/UnreadNotificationUseCase';
+import { FindAllNotificationsController } from './controllers/notification/FindAllNotifications.controller';
+import { SendNotificationController } from './controllers/notification/SendNotification.controller';
+import { CancelNotificationController } from './controllers/notification/CancelNotification.controller';
+import { CancelNotificationUseCase } from '@app/useCases/notification/CancelNotification/CancelNotificationUseCase';
+import { CountRecipientNotificationsController } from './controllers/notification/CountRecipientNotification.controller';
+import { CountRecipientNotificationsUseCase } from '@app/useCases/notification/CountNotifications/CountRecipientNotificationsUseCase';
+import { GetRecipientNotificationsController } from './controllers/notification/GetRecipientNotifications.controller';
+import { GetRecipientNotificationsUseCase } from '@app/useCases/notification/GetRecipientNotifications/GetRecipientNotificationsUseCase';
+import { ReadNotificationController } from './controllers/notification/ReadNotification.controller';
+import { UnreadNotificationController } from './controllers/notification/UnreadNotification.controller';
+import { ReadNotificationUseCase } from '@app/useCases/notification/ReadNotification/ReadNotificationUseCase';
+import { UnreadNotificationUseCase } from '@app/useCases/notification/UnreadNotification/UnreadNotificationUseCase';
+import { CreateUserController } from './controllers/user/CreateUser.controller';
+import { CreateUserUseCase } from '@app/useCases/user/CreateUser/CreateUserUseCase';
 
 @Module({
   imports: [DataBaseModule],
@@ -25,6 +27,7 @@ import { UnreadNotificationUseCase } from '@app/useCases/UnreadNotification/Unre
     GetRecipientNotificationsController,
     ReadNotificationController,
     UnreadNotificationController,
+    CreateUserController,
   ],
   providers: [
     SendNotificationUseCase,
@@ -34,6 +37,7 @@ import { UnreadNotificationUseCase } from '@app/useCases/UnreadNotification/Unre
     GetRecipientNotificationsUseCase,
     ReadNotificationUseCase,
     UnreadNotificationUseCase,
+    CreateUserUseCase,
   ],
 })
 export class HttpModule {}
