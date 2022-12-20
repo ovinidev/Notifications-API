@@ -16,6 +16,10 @@ import { ReadNotificationUseCase } from '@app/useCases/notification/ReadNotifica
 import { UnreadNotificationUseCase } from '@app/useCases/notification/UnreadNotification/UnreadNotificationUseCase';
 import { CreateUserController } from './controllers/user/CreateUser.controller';
 import { CreateUserUseCase } from '@app/useCases/user/CreateUser/CreateUserUseCase';
+import { LoginController } from './controllers/user/Login.controller';
+import { LoginUseCase } from '@app/useCases/user/Login/LoginUseCase';
+import { RefreshTokenController } from './controllers/user/RefreshToken.controller';
+import { RefreshTokenUseCase } from '@app/useCases/user/RefreshToken/RefreshTokenUseCase';
 
 @Module({
   imports: [DataBaseModule],
@@ -28,6 +32,8 @@ import { CreateUserUseCase } from '@app/useCases/user/CreateUser/CreateUserUseCa
     ReadNotificationController,
     UnreadNotificationController,
     CreateUserController,
+    LoginController,
+    RefreshTokenController,
   ],
   providers: [
     SendNotificationUseCase,
@@ -38,6 +44,8 @@ import { CreateUserUseCase } from '@app/useCases/user/CreateUser/CreateUserUseCa
     ReadNotificationUseCase,
     UnreadNotificationUseCase,
     CreateUserUseCase,
+    LoginUseCase,
+    RefreshTokenUseCase,
   ],
 })
 export class HttpModule {}

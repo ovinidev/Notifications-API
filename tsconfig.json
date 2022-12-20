@@ -24,7 +24,8 @@
       "@app/*": ["./src/app/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@infra/*": ["./src/infra/*"],
-      "@test/*": ["./test/*"]
+      "@test/*": ["./test/*"],
+      "@constants/*": ["./src/app/constants/*"]
     }
   }
 }
