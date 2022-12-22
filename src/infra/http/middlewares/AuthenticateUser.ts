@@ -31,6 +31,10 @@ export class AuthenticateUser implements NestMiddleware {
         return res.status(400).json({ message: 'User not found' });
       }
 
+      req.user = {
+        id,
+      };
+
       next();
     } catch (err: any) {
       return res.status(400).json({ message: err.message });

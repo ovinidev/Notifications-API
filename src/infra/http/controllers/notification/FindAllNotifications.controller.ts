@@ -1,9 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { FindAllNotificationsUseCase } from '@app/useCases/notification/FindAllNotifications/FindAllNotificationsUseCase';
 import {
   NotificationViewModel,
   NotificationViewModelProps,
 } from '../../viewModels/NotificationViewModels';
+import { Request } from 'express';
 
 @Controller('notifications')
 export class FindAllNotificationsController {
@@ -12,8 +13,10 @@ export class FindAllNotificationsController {
   ) {}
 
   @Get()
-  async get(): Promise<NotificationViewModelProps[]> {
+  async get(@Req() req: Request): Promise<NotificationViewModelProps[]> {
     const notifications = await this.findAllNotificationsUseCase.execute();
+
+    const { id } = req.user;
 
     return notifications.map(NotificationViewModel.toHTTP);
   }

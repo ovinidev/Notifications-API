@@ -6,7 +6,7 @@ export class RefreshTokenController {
   constructor(private refreshToken: RefreshTokenUseCase) {}
 
   @Post()
-  async handle(@Headers() headers) {
+  async handle(@Headers('') headers) {
     const { authorization } = headers;
 
     const response = await this.refreshToken.execute(authorization);
