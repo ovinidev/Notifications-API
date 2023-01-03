@@ -1,6 +1,12 @@
 import { LoginUseCase } from '@app/useCases/user/Login/LoginUseCase';
 import { LoginUserBody } from '@infra/http/dtos/loginUserBody';
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 
 @Controller('login')
 export class LoginController {
@@ -8,6 +14,16 @@ export class LoginController {
 
   @Post()
   async handle(@Body() body: LoginUserBody) {
-    return await this.loginUseCase.execute(body);
+    try {
+      return await this.loginUseCase.execute(body);
+    } catch (err: any) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNAUTHORIZED,
+          error: err.message,
+        },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 }

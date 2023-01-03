@@ -1,5 +1,11 @@
 import { CreateUserUseCase } from '@app/useCases/user/CreateUser/CreateUserUseCase';
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { CreateUserBody } from '../../dtos/createUserBody';
 
 @Controller('users')
@@ -8,6 +14,16 @@ export class CreateUserController {
 
   @Post()
   async create(@Body() body: CreateUserBody) {
-    return this.createUserUseCase.execute(body);
+    try {
+      return await this.createUserUseCase.execute(body);
+    } catch (err: any) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNAUTHORIZED,
+          error: err.message,
+        },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 }

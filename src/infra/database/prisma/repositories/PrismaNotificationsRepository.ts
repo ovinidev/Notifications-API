@@ -31,8 +31,6 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
 
     if (!notification) return null;
 
-    if (!notification.id) throw new Error('cade o id');
-
     return PrismaNotificationMapper.toDomain(notification);
   }
 

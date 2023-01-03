@@ -1,4 +1,4 @@
-import { UserProps } from '../../../entities/user/user';
+import { User, UserProps } from '../../../entities/user/user';
 import { UserRepository } from '../../../repositories/UserRepository';
 import { CreateUserBody } from '../../../../infra/http/dtos/createUserBody';
 import { Injectable } from '@nestjs/common';
@@ -17,11 +17,13 @@ export class CreateUserUseCase {
 
     const hashPassword = await hash(password, 8);
 
-    await this.userRepository.create({
+    const user = new User({
       email,
       name,
       password: hashPassword,
     });
+
+    await this.userRepository.create(user);
 
     return {
       name,
